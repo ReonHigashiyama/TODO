@@ -42,6 +42,7 @@ function save_task() {
     endTime: endTime
   };
   emit('add-task', TaskData);
+  title.value = "";
   close();
 }
 
