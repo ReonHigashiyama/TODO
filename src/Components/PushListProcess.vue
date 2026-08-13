@@ -8,6 +8,7 @@ const title = ref('');
 const startTime = ref(formatTime(9, 0));
 const endTime = ref(formatTime(18, 0));
 const titleInput = ref(null);
+const emit = defineEmits(['add-task']);
 
 const timeOptions = [];
 
@@ -31,10 +32,19 @@ function save() {
 function save_task() {
   window.alert('クリックしました');
   //保存処理
-  if (!title.value) console.log('(タイトルなし)');
+  if (!title.value) {
+    console.log('(タイトルなし)');
+    title.value = '(タイトルなし)';
+  }
   else console.log(title.value);
   console.log(startTime.value);
   console.log(endTime.value);
+  const TaskData = {
+    titleName: title.value,
+    startTime: startTime,
+    endTime: endTime
+  };
+  emit('add-task', TaskData);
   close();
 }
 

@@ -7,6 +7,8 @@ let currentDate = new Date(); //日付取得
 let month = currentDate.getMonth() + 1;
 let date = currentDate.getDate();
 let day = currentDate.getDay();
+
+const tasks = ref([]); //PushListProcessから受け取るデータ
 switch (day) {
   case 0:
     day = '日';
@@ -33,6 +35,9 @@ switch (day) {
     break;
 }
 
+function addTask(newTask) {
+  tasks.value.push(newTask);
+}
 
 </script>
 
@@ -40,8 +45,8 @@ switch (day) {
   <div class="header">
     <h1>TODO</h1>
   </div>
-  <PushListProcess :month="month" :date="date" :day="day"/>
-  <Tasklist/>
+  <PushListProcess :month="month" :date="date" :day="day" @add-task="addTask"/>
+  <Tasklist :tasks="tasks"/>
 </template>
 
 <style scoped>
