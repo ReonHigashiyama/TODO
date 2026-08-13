@@ -13,43 +13,43 @@ const timeOptions = [];
 
 // isOpenがtrueになった直後、DOMが更新されてからinputにフォーカスする
 watch(isOpen, async (open) => {
-    if (open) {
-        await nextTick();
-        titleInput.value?.focus();
-    }
+  if (open) {
+    await nextTick();
+    titleInput.value?.focus();
+  }
 });
 
 function close() {
-    isOpen.value = false;
+  isOpen.value = false;
 }
 
 function save() {
-    alert('保存しました: ' + (title.value || '(タイトルなし)'));
-    close();
+  alert('保存しました: ' + (title.value || '(タイトルなし)'));
+  close();
 }
 
 function save_task() {
-    window.alert('クリックしました');
-    isOpen.value = false;
-    //保存処理
-    if (!title.value) console.log('(タイトルなし)');
-    else console.log(title.value);
-    console.log(startTime.value);
-    console.log(endTime.value);
+  window.alert('クリックしました');
+  //保存処理
+  if (!title.value) console.log('(タイトルなし)');
+  else console.log(title.value);
+  console.log(startTime.value);
+  console.log(endTime.value);
+  close();
 }
 
 function formatTime(hour, minute) {
-    const period = hour < 12 ? '午前' : '午後';
-    let h = hour % 12;
-    if (h == 0) h = 12;
-    const mm = String(minute).padStart(2, '0');
-    return `${period}${h}:${mm}`;
+  const period = hour < 12 ? '午前' : '午後';
+  let h = hour % 12;
+  if (h == 0) h = 12;
+  const mm = String(minute).padStart(2, '0');
+  return `${period}${h}:${mm}`;
 }
 
 for (let h = 9; h < 19; h++){
-    for (let m = 0; m < 60; m += 30){
-        timeOptions.push(formatTime(h, m));
-    }
+  for (let m = 0; m < 60; m += 30){
+    timeOptions.push(formatTime(h, m));
+  }
 }
 </script>
 <template>
