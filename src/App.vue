@@ -8,7 +8,10 @@ let month = currentDate.getMonth() + 1;
 let date = currentDate.getDate();
 let day = currentDate.getDay();
 
-const tasks = ref([]); //PushListProcessから受け取るデータ
+
+const saved = localStorage.getItem('tasks');
+const tasks = ref(saved ? JSON.parse(saved) : []);
+
 switch (day) {
   case 0:
     day = '日';
@@ -38,6 +41,10 @@ switch (day) {
 function addTask(newTask) {
   tasks.value.push(newTask);
 }
+
+watch(tasks, (newTasks) => {
+  localStorage.setItem('tasks', JSON.stringify(newTasks));
+}, { deep: true });
 
 </script>
 
