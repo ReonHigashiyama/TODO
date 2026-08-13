@@ -9,7 +9,7 @@ defineProps(['tasks']);
             <th>終了時間</th>
         </tr>
         <tr v-for="task in tasks">
-            <td>{{ task.titleName }}</td>
+            <td><button>X</button>{{ task.titleName }}</td>
             <td>{{ task.startTime }}</td>
             <td>{{ task.endTime }}</td>
         </tr>
