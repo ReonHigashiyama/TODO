@@ -24,11 +24,6 @@ function close() {
   isOpen.value = false;
 }
 
-function save() {
-  alert('保存しました: ' + (title.value || '(タイトルなし)'));
-  close();
-}
-
 function save_task() {
   window.alert('クリックしました');
   //保存処理
@@ -36,10 +31,14 @@ function save_task() {
     title.value = '(タイトルなし)';
   }
 
+  const Title = title.value;
+  const Start = startTime.value;
+  const End = endTime.value;
+
   const TaskData = {
-    titleName: title.value,
-    startTime: startTime,
-    endTime: endTime
+    titleName: Title,
+    startTime: Start,
+    endTime: End
   };
   emit('add-task', TaskData);
   title.value = "";
