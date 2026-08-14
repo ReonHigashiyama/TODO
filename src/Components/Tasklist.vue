@@ -1,5 +1,9 @@
 <script setup>
 defineProps(['tasks']);
+const emit = defineEmits(['delete-task']);
+function DeleteTask(index) {
+    emit('delete-task', index);
+}
 </script>
 <template>
     <table>
@@ -8,8 +12,8 @@ defineProps(['tasks']);
             <th>開始時間</th>
             <th>終了時間</th>
         </tr>
-        <tr v-for="task in tasks">
-            <td><button>X</button>{{ task.titleName }}</td>
+        <tr v-for="(task,index) in tasks" :key="task.id">
+            <td><button @click="DeleteTask(index)">X</button>{{ task.titleName }}</td>
             <td>{{ task.startTime }}</td>
             <td>{{ task.endTime }}</td>
         </tr>
@@ -41,5 +45,8 @@ table td {
 }
 table td:last-child {
     border-right: none;
+}
+button {
+    padding: 10px;
 }
 </style>
