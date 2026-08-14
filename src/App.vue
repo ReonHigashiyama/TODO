@@ -46,6 +46,10 @@ watch(tasks, (newTasks) => {
   localStorage.setItem('tasks', JSON.stringify(newTasks));
 }, { deep: true });
 
+function RemoveTask(index) {
+  tasks.value.splice(index, 1);
+}
+
 </script>
 
 <template>
@@ -53,7 +57,7 @@ watch(tasks, (newTasks) => {
     <h1>TODO</h1>
   </div>
   <PushListProcess :month="month" :date="date" :day="day" @add-task="addTask"/>
-  <Tasklist :tasks="tasks"/>
+  <Tasklist @delete-task="RemoveTask" :tasks="tasks"/>
 </template>
 
 <style scoped>
