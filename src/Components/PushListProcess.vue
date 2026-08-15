@@ -25,7 +25,7 @@ function close() {
 }
 
 function save_task() {
-  window.alert('クリックしました');
+  window.alert('保存しました');
   //保存処理
   if (!title.value) {
     title.value = '(タイトルなし)';
