@@ -24,24 +24,15 @@ function close() {
   isOpen.value = false;
 }
 
-function save_task() {
-  window.alert('保存しました');
-  //保存処理
-  if (!title.value) {
-    title.value = '(タイトルなし)';
-  }
-
-  const Title = title.value;
-  const Start = startTime.value;
-  const End = endTime.value;
-
-  const TaskData = {
-    titleName: Title,
-    startTime: Start,
-    endTime: End
+function saveTask() {
+  const taskData = {
+    titleName: title.value || '(タイトルなし)',
+    startTime: startTime.value,
+    endTime: endTime.value
   };
-  emit('add-task', TaskData);
-  title.value = "";
+  emit('add-task', taskData);
+  window.alert('保存しました');
+  title.value = '';
   close();
 }
 
@@ -90,7 +81,7 @@ for (let h = 9; h < 19; h++){
                 </div>
             </div>
             <div class="footer">
-                <button class="save-btn" id="saveBtn" @click="save_task">保存</button>
+                <button class="save-btn" id="saveBtn" @click="saveTask">保存</button>
             </div>
         </div>
     </div>
@@ -182,29 +173,6 @@ for (let h = 9; h < 19; h++){
   font-weight: 400;
 }
 
-.tabs {
-  display: flex;
-  gap: 8px;
-  padding: 0 24px 20px;
-}
-.tab {
-  border: none;
-  background: #f1f3f4;
-  color: #3c4043;
-  padding: 7px 18px;
-  border-radius: 18px;
-  font-size: 14px;
-  cursor: pointer;
-  font-weight: 500;
-}
-.tab.active {
-  background: #d3e3fd;
-  color: #0b57d0;
-}
-.tab:not(.active):hover {
-  background: #e8eaed;
-}
-
 .row {
   display: flex;
   align-items: flex-start;
@@ -222,10 +190,6 @@ for (let h = 9; h < 19; h++){
 .row .content {
   flex: 1;
 }
-.row .main-text {
-  font-size: 14px;
-  color: #3c4043;
-}
 .row .sub-text {
   font-size: 12px;
   color: #70757a;
@@ -234,13 +198,6 @@ for (let h = 9; h < 19; h++){
 }
 .row .sub-text:hover {
   text-decoration: underline;
-}
-.row.link .main-text {
-  color: #1a73e8;
-  cursor: pointer;
-}
-.row.link:hover {
-  background: #f8f9fa;
 }
 
 .datetime {
@@ -261,10 +218,6 @@ for (let h = 9; h < 19; h++){
   outline: 2px solid #1a73e8;
   border-color: transparent;
 }
-.dash {
-  color: #5f6368;
-}
-
 .footer {
   display: flex;
   justify-content: flex-end;

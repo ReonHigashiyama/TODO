@@ -3,53 +3,28 @@ import { ref, watch } from 'vue';
 import PushListProcess from './Components/PushListProcess.vue';
 import Tasklist from './Components/Tasklist.vue';
 
-let currentDate = new Date(); //日付取得
-let month = currentDate.getMonth() + 1;
-let date = currentDate.getDate();
-let day = currentDate.getDay();
+const STORAGE_KEY = 'tasks';
+const DAY_LABELS = ['日', '月', '火', '水', '木', '金', '土'];
 
+const currentDate = new Date();
+const month = currentDate.getMonth() + 1;
+const date = currentDate.getDate();
+const day = DAY_LABELS[currentDate.getDay()];
 
-const saved = localStorage.getItem('tasks');
+const saved = localStorage.getItem(STORAGE_KEY);
 const tasks = ref(saved ? JSON.parse(saved) : []);
 
-switch (day) {
-  case 0:
-    day = '日';
-    break;
-  case 1:
-    day = '月';
-    break;
-  case 2:
-    day = '火';
-    break;
-  case 3:
-    day = '水';
-    break;
-  case 4:
-    day = '木';
-    break;
-  case 5:
-    day = '金';
-    break;
-  case 6:
-    day = '土';
-    break;
-  default:
-    break;
-}
-
-function addTask(newTask) {
-  tasks.value.push(newTask);
-}
-
 watch(tasks, (newTasks) => {
-  localStorage.setItem('tasks', JSON.stringify(newTasks));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newTasks));
 }, { deep: true });
 
-function RemoveTask(index) {
-  tasks.value.splice(index, 1);
+function addTask(newTask) {
+  tasks.value.push({ id: crypto.randomUUID(), ...newTask });
 }
 
+function removeTask(index) {
+  tasks.value.splice(index, 1);
+}
 </script>
 
 <template>
@@ -57,7 +32,7 @@ function RemoveTask(index) {
     <h1>TODO</h1>
   </div>
   <PushListProcess :month="month" :date="date" :day="day" @add-task="addTask"/>
-  <Tasklist @delete-task="RemoveTask" :tasks="tasks"/>
+  <Tasklist :tasks="tasks" @delete-task="removeTask"/>
 </template>
 
 <style scoped>

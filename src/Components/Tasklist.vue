@@ -1,7 +1,7 @@
 <script setup>
 defineProps(['tasks']);
 const emit = defineEmits(['delete-task']);
-function DeleteTask(index) {
+function deleteTask(index) {
     emit('delete-task', index);
 }
 </script>
@@ -12,8 +12,8 @@ function DeleteTask(index) {
             <th>開始時間</th>
             <th>終了時間</th>
         </tr>
-        <tr v-for="(task,index) in tasks" :key="task.id">
-            <td><button @click="DeleteTask(index)">X</button>{{ task.titleName }}</td>
+        <tr v-for="(task, index) in tasks" :key="task.id">
+            <td><button @click="deleteTask(index)">X</button>{{ task.titleName }}</td>
             <td>{{ task.startTime }}</td>
             <td>{{ task.endTime }}</td>
         </tr>
