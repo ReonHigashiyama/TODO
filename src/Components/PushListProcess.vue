@@ -1,5 +1,7 @@
 <script setup>
 import { ref, watch, nextTick } from 'vue';
+import { formatTime, timeOptions } from '../utils/time.js';
+
 const props = defineProps(['month', 'date', 'day']);
 const today = `${props.month}月 ${props.date}日 (${props.day}曜日)`;
 
@@ -9,8 +11,6 @@ const startTime = ref(formatTime(9, 0));
 const endTime = ref(formatTime(18, 0));
 const titleInput = ref(null);
 const emit = defineEmits(['add-task']);
-
-const timeOptions = [];
 
 // isOpenがtrueになった直後、DOMが更新されてからinputにフォーカスする
 watch(isOpen, async (open) => {
@@ -31,23 +31,8 @@ function saveTask() {
     endTime: endTime.value
   };
   emit('add-task', taskData);
-  window.alert('保存しました');
   title.value = '';
   close();
-}
-
-function formatTime(hour, minute) {
-  const period = hour < 12 ? '午前' : '午後';
-  let h = hour % 12;
-  if (h == 0) h = 12;
-  const mm = String(minute).padStart(2, '0');
-  return `${period}${h}:${mm}`;
-}
-
-for (let h = 9; h < 19; h++){
-  for (let m = 0; m < 60; m += 30){
-    timeOptions.push(formatTime(h, m));
-  }
 }
 </script>
 <template>

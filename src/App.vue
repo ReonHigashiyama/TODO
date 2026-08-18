@@ -25,6 +25,10 @@ function addTask(newTask) {
 function removeTask(index) {
   tasks.value.splice(index, 1);
 }
+
+function updateTask({ index, data }) {
+  tasks.value[index] = { ...tasks.value[index], ...data };
+}
 </script>
 
 <template>
@@ -32,7 +36,7 @@ function removeTask(index) {
     <h1>TODO</h1>
   </div>
   <PushListProcess :month="month" :date="date" :day="day" @add-task="addTask"/>
-  <Tasklist :tasks="tasks" @delete-task="removeTask"/>
+  <Tasklist :tasks="tasks" @delete-task="removeTask" @update-task="updateTask"/>
 </template>
 
 <style scoped>
