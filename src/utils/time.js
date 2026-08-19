@@ -8,7 +8,7 @@ export function formatTime(hour, minute) {
 
 export const timeOptions = [];
 for (let h = 9; h < 19; h++) {
-  for (let m = 0; m < 60; m += 30) {
+  for (let m = 0; m < 60; m += 15) {
     timeOptions.push(formatTime(h, m));
   }
 }
